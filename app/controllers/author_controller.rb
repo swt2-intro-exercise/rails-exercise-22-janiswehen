@@ -2,15 +2,24 @@ class AuthorController < ApplicationController
     def new
     end
 
+    def show
+      @author = Author.find(author_id_params)
+    end
+
     def create
-        @author = Author.new(author_params)
- 
-        @author.save
-        redirect_to root_path, notice: 'Success!'
+      @author = Author.new(new_author_params)
+
+      @author.save
+      redirect_to root_path, notice: 'Success!'
     end
 
     private
-    def author_params
+    def new_author_params
       params.require(:author).permit(:first_name, :last_name, :homepage)
+    end
+
+    private
+    def author_id_params
+      params.require(:id)
     end
 end
