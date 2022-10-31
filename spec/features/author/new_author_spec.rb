@@ -22,4 +22,9 @@ describe "New author page", type: :feature do
       find('input[type="submit"]').click
     }.to change(Author, :count).by(1)
   end
+
+  it "should have a link to the author index" do
+    visit new_author_path
+    expect(page).to have_link 'Back', href: "/author"
+  end
 end
