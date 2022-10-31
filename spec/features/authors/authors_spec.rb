@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "author index page", type: :feature do
-    it "should exist at 'author_path' and render withour errors" do
+    it "should exist at 'authors_path' and render withour errors" do
         # https://guides.rubyonrails.org/routing.html#path-and-url-helpers
         visit authors_path
     end

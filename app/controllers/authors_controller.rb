@@ -14,8 +14,11 @@ class AuthorsController < ApplicationController
   def create
     @author = Author.new(new_author_params)
 
-    @author.save
-    redirect_to root_path, notice: 'Success!'
+    if @author.save
+      redirect_to authors_path, notice: 'Success!'
+    else
+      render 'new'
+    end
   end
 
   private
