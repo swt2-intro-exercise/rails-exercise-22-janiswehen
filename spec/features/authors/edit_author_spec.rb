@@ -35,7 +35,7 @@ describe "edit author page", type: :feature do
         expect(@author.homepage).to eq("new_http://wikipedia.org/Alan_Turing")
     end
 
-    it "should have a link back to the author page" do
+    it "should have a link back to its author page" do
         visit edit_author_path(@author)
         expect(page).to have_link 'Back', href: author_path(@author)
     end
