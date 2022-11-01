@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe "author index page", type: :feature do
     it "should exist at 'authors_path' and render withour errors" do
-        # https://guides.rubyonrails.org/routing.html#path-and-url-helpers
         visit authors_path
     end
 
@@ -17,19 +16,26 @@ describe "author index page", type: :feature do
         expect(page).to have_link 'New', href: new_author_path
     end
 
-    it "should show authors" do
-        first_name = "Alan"
-        last_name = "Turing"
-        homepage = "http://wikipedia.org/Alan_Turing"
-        expect{
-            @alan = Author.create(
-                first_name: first_name,
-                last_name: last_name,
-                homepage: homepage
+    context "given an author" do
+
+        before :each do
+            @author = Author.new(
+                first_name: 'Alan',
+                last_name: 'Turing',
+                homepage: 'http://wikipedia.org/Alan_Turing'
             )
-        }.to change(Author, :count).by(1)
-        visit authors_path
-        expect(page).to have_xpath("//table//td//a[contains(@href, '#{author_path(@alan)}') and text()='#{first_name + " " + last_name}']")
-        expect(page).to have_xpath("//table//td//a[contains(@href, '#{homepage}') and text()='#{homepage}']")
+            @author.save()
+        end
+
+        it "should show authors" do
+            visit authors_path
+            expect(page).to have_xpath("//table//td//a[contains(@href, '#{author_path(@author)}') and text()='#{@author.first_name + " " + @author.last_name}']")
+            expect(page).to have_xpath("//table//td//a[contains(@href, '#{@author.homepage}') and text()='#{@author.homepage}']")
+        end
+
+        it "should show a link to edit the authors" do
+            visit authors_path
+            expect(page).to have_xpath("//table//td//a[contains(@href, '#{edit_author_path(@author)}') and text()='Edit']")
+        end
     end
 end
