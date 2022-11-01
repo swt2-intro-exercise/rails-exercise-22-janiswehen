@@ -37,7 +37,7 @@ describe "edit author page", type: :feature do
 
     it "should have a link back to its author page" do
         visit edit_author_path(@author)
-        expect(page).to have_link 'Back', href: author_path(@author)
+        expect(page).to have_link 'Back', href: authors_path
     end
 
     it "should render an error message when submitting an invalid author" do

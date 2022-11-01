@@ -37,5 +37,12 @@ describe "author index page", type: :feature do
             visit authors_path
             expect(page).to have_xpath("//table//td//a[contains(@href, '#{edit_author_path(@author)}') and text()='Edit']")
         end
+
+        it "should show a link to delete the authors" do
+            visit authors_path
+            expect{
+                find(:xpath, "//table//td//a[contains(@href, '#{author_path(@author)}') and text()='Delete']").click
+            }.to change(Author, :count).by(-1)
+        end
     end
 end
