@@ -8,12 +8,16 @@ class AuthorsController < ApplicationController
     @author = Author.new
   end
 
+  def edit
+    @author = Author.find(params[:id])
+  end
+
   def show
     @author = Author.find(author_id_params)
   end
 
   def create
-    @author = Author.new(new_author_params)
+    @author = Author.new(author_params)
 
     if @author.save
       redirect_to authors_path, notice: 'Success!'
@@ -22,8 +26,18 @@ class AuthorsController < ApplicationController
     end
   end
 
+  def update
+    @author = Author.find(author_id_params)
+
+    if @author.update(author_params)
+      redirect_to @author
+    else
+      render 'edit'
+    end
+  end
+
   private
-  def new_author_params
+  def author_params
     params.require(:author).permit(:first_name, :last_name, :homepage)
   end
 

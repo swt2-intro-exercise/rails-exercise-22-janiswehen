@@ -1,6 +1,5 @@
-<h1>New Author</h1>
-<%= form_with url: "/authors", scope: :author, local: true do |form| %>
-
+<h1>Edit Author</h1>
+<%= form_for :author, url: author_path(@author), method: :patch do |form| %>
   <% if @author.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -34,6 +33,6 @@
     <%= form.submit %>
   </p>
   <p>
-    <%= link_to 'Back', authors_path %>
+    <%= link_to 'Back', author_path(@author) %>
   </p>
 <% end %>
