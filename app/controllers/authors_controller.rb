@@ -9,7 +9,14 @@ class AuthorsController < ApplicationController
   end
 
   def edit
-    @author = Author.find(params[:id])
+    @author = Author.find(author_id_params)
+  end
+
+  def destroy
+    @author = Author.find(author_id_params)
+    @author.destroy
+   
+    redirect_to authors_path
   end
 
   def show
