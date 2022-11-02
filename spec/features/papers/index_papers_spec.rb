@@ -19,5 +19,10 @@ describe "index papers page", type: :feature do
             visit papers_path
             expect(page).to have_xpath("//a[@href='#{edit_paper_path(@paper)}']")
         end
+
+        it "should have a link to delete a paper" do
+            visit papers_path
+            expect(page).to have_xpath("//a[@data-turbo-method='delete' and @href='#{paper_path(@paper)}']")
+        end
     end
 end
